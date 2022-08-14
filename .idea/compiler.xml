@@ -21,7 +21,7 @@
         <module name="Day07-vue-axios-json" />
         <module name="Day05-space" />
         <module name="Spring-JdbcTemplate" />
-        <module name="Spring-SpringMVC-MyBatis" />
+        <module name="SSM-CRUD" />
         <module name="Day02-thymeleaf" />
       </profile>
     </annotationProcessing>
@@ -44,6 +44,7 @@
       <module name="Spring-SpringMVC-MyBatis" target="11" />
       <module name="Spring-TransactionOperation" target="11" />
       <module name="SpringBoot" target="17" />
+      <module name="SSM-CRUD" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

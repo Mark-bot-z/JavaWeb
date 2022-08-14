@@ -34,7 +34,7 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <tx:advice id="interceptor">
+    <tx:advice id="interceptor" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="transfer" propagation="REQUIRED"/>
         </tx:attributes>

@@ -35,6 +35,7 @@
         <!--    当映射文件的包与其对应的接口包的路径不相同时设置    <property name="mapperLocations"-->
     </bean>
 
+<!--    daos -->
     <!--    通过MapperScannerConfigurer和SqlSessionFactoryBean的结合来创建所有相关接口的实现类对象放入ioc容器-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.ssm.daos.mapper"/>

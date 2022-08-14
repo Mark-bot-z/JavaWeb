@@ -7,8 +7,11 @@
     <groupId>org.example</groupId>
     <artifactId>Spring-SpringMVC-MyBatis</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>SSM-CRUD</module>
+    </modules>
 
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
 
 
     <dependencies>
@@ -120,11 +123,6 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
             <version>5.2.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-            <version>2.7.2</version>
         </dependency>
     </dependencies>
 

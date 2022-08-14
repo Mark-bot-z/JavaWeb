@@ -4,13 +4,17 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+">
+<!--    service -->
 
-    <context:component-scan base-package="com.ssm.services"/>
+    <context:component-scan base-package="com.ssm.service"/>
 
-    <context:property-placeholder location="classpath:static/pool_info.properties"/>
+
+
+    <context:property-placeholder location="classpath:App-config/pool_info.properties"/>
 
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="${prop.driverClassName}"/>
@@ -29,15 +33,18 @@
     <!--    加入关于mybatis的组件-->
     <bean class="org.mybatis.spring.SqlSessionFactoryBean">
         <!--   可以由spring配置也可以由mybatis配置     -->
-        <property name="configLocation" value="classpath:static/MyBatis-Config.xml"/>
+        <property name="configLocation" value="classpath:App-config/MyBatis-Config.xml"/>
         <property name="dataSource" ref="dataSource"/>
         <property name="typeAliasesPackage" value="com.ssm.daos.pojo"/>
         <!--    当映射文件的包与其对应的接口包的路径不相同时设置    <property name="mapperLocations"-->
     </bean>
 
+    <!--    daos -->
     <!--    通过MapperScannerConfigurer和SqlSessionFactoryBean的结合来创建所有相关接口的实现类对象放入ioc容器-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.ssm.daos.mapper"/>
+        <property name="basePackage" value="com.ssm.daos.mappers"/>
     </bean>
+
+
 
 </beans>
