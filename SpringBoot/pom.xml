@@ -10,6 +10,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <packaging>
+        jar
+    </packaging>
+
     <groupId>com.boot</groupId>
     <artifactId>boot</artifactId>
     <version>0.0.1-SNAPSHOT</version>

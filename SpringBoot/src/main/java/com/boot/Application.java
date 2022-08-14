@@ -29,7 +29,6 @@ public class Application {
 
 
 
-
 //        AppConfig appConfig = run.getBean(AppConfig.class);
 //
 //        System.out.println(appConfig.joinUser(null));
