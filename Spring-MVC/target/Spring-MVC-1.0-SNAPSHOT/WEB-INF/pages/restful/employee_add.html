@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:v-model="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>add</title>
+    <script th:src="@{/static/script/vue.js}"></script>
+    <script th:src="@{/static/script/axios.min.js}"></script>
+    <script th:inline="javascript">
+        window.onload = function () {
+            var vue = new Vue({
+                el: "#div_form",
+                data: {
+                    lastName: '',
+                    email: '',
+                    gender: ''
+                },
+                methods: {
+                    addEmp: function (event) {
+                        axios({
+                            method: "POST",
+                            //用这种方式（restful）发送参数，url请求凤凤必须需要对应后端的restful风格
+                            //addSave不能有
+                            // #request.getContextPath()+/Employee/+vue.lastName+"/"+vue.email+"/"+vue.gender,
+                            url: [[${#request.getContextPath()+"/Employee/"}]]+vue.lastName+"/"+vue.email+"/"+vue.gender,
+                            //带请求参数发送(params) 写入输出流发送(data)
+                            params: {
+                                // lastName: vue.lastName,
+                                // email: vue.email,
+                                // gender: vue.gender
+                            }
+                        }).then(function (value) {
+                            alert(value.data)
+                        }).catch(function (reason) {
+                            alert(reason)
+                        });
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+
+<div id="div_form">
+    <label>
+        lastName:
+        <input type="text" v-model="lastName">
+    </label><br>
+    <label>
+        email:
+        <input type="text" v-model="email">
+    </label><br>
+    <label>
+        gender:
+        <input type="radio" value="1" v-model="gender">
+    </label>
+    <label>
+        male:
+        <input type="radio" value="0" v-model="gender">
+    </label><br>
+    <input type="button" @click="addEmp" value="添  加"><br>
+</div>
+
+
+</body>
+</html>

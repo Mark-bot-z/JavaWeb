@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="script/vue.js"></script>
+    <script>
+        //在加载网页的时候执行
+        window.onload = function () {
+            var vue_1 = new Vue({
+                //给定标签名
+                el: "#div1",
+                //给定指定的属性的数据
+                data: {
+                    mas: "f"
+                    // h1data:"4",
+                    // java:"kkk"
+                }
+            });
+
+            var vue_2 = new Vue({
+                //给定标签名
+                el: "#div2",
+                //给定指定的属性的数据
+                data: {
+                    h1data: "4",
+                    java: "kkk",
+                    oppo:"123",
+                }
+            });
+
+        }
+    </script>
+    <title></title>
+</head>
+<body>
+
+<div id="div1">
+    {{mas}}
+</div>
+
+<div id="div2">
+<!--    这些指定的属性可以是相互嵌套的-->
+    <h1>
+        {{h1data}}
+        <span>
+            {{java}}
+        </span>
+    </h1>
+    <label>
+        <input type="text" v-bind:value="oppo"/>
+    </label>
+</div>
+</body>
+</html>

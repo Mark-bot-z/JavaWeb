@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>update</title>
+</head>
+<body>
+
+<div th:object="${#request.getAttribute('employee')}">
+    <form th:action="@{/Employee/updateSave}" method="post">
+        <!--浏览器不会发送除post和get以外的请求-->
+        <!--spring会将这种请求参数名为_method的值的put新建一个请求替换刚开始的请求-->
+        <input type="hidden" name="_method" value="put">
+        <label>
+            ID:
+            <input type="text" name="id" th:value="*{id}">
+        </label>
+        <br>
+        <label>
+            lastName:
+            <input type="text" name="lastName" th:value="*{lastName}">
+        </label>
+        <br>
+        <label>
+            email:
+            <input type="text" name="email" th:value="*{email}">
+        </label>
+        <br>
+        <label>
+            gender:
+            <br>
+            male:
+            <input type="radio" name="gender" value="1" th:checked="${#request.getAttribute('employee').gender } == 1 ? true : false ">
+            <br>
+            female:
+            <input type="radio" name="gender" value="0" th:checked="${#request.getAttribute('employee').gender } == 0 ? true : false ">
+        </label>
+        <br>
+        <label>
+            <input type="submit" value="保  存">
+        </label>
+    </form>
+</div>
+
+
+</body>
+</html>

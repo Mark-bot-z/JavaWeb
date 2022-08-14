@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE beans [
+        <!ELEMENT beans (bean*)>
+        <!ELEMENT bean (rely*)>
+        <!ELEMENT rely (#PCDATA)>
+
+        <!ATTLIST bean id ID #REQUIRED>
+        <!ATTLIST bean class CDATA #IMPLIED>
+        <!ATTLIST rely name CDATA #IMPLIED>
+        <!ATTLIST rely ref IDREF #IMPLIED>
+        ]>
+<!-- 配置并链接各个bean之间的依赖 -->
+<beans>
+
+    <!--  controller  -->
+    <bean id="page" class="com.example.ssm.core.PageController"/>
+    <bean id="user" class="com.example.book.controllers.UserController">
+        <rely name="userService" ref="userServiceImpl"/>
+        <rely name="cartService" ref="cartServiceImpl"/>
+        <rely name="orderService" ref="orderServiceImpl"/>
+    </bean>
+    <bean id="book" class="com.example.book.controllers.BookController">
+          <rely name="bookService" ref="bookServiceImpl"/>
+    </bean>
+    <bean id="cart" class="com.example.book.controllers.CartController">
+        <rely name="cartService" ref="cartServiceImpl"/>
+    </bean>
+    <bean id="order" class="com.example.book.controllers.OrderController">
+        <rely name="orderService" ref="orderServiceImpl"/>
+    </bean>
+
+<!--  service  -->
+    <bean id="userServiceImpl" class="com.example.book.services.impls.UserServiceImpl">
+        <rely name="userDao" ref="userDaoImpl"/>
+    </bean>
+    <bean id="bookServiceImpl" class="com.example.book.services.impls.BookServiceImpl">
+        <rely name="bookDao" ref="bookDaoImpl"/>
+    </bean>
+    <bean id="cartServiceImpl" class="com.example.book.services.impls.CartServiceImpl">
+        <rely name="carItemService" ref="carItemServiceImpl"/>
+        <rely name="bookService" ref="bookServiceImpl"/>
+    </bean>
+    <bean id="carItemServiceImpl" class="com.example.book.services.impls.CarItemServiceImpl">
+        <rely name="cartItemDao" ref="cartItemDaoImpl"/>
+        <rely name="bookService" ref="bookServiceImpl"/>
+    </bean>
+    <bean id="orderServiceImpl" class="com.example.book.services.impls.OrderServiceImpl">
+        <rely name="orderDao" ref="orderDaoImpl"/>
+        <rely name="orderItemService" ref="orderItemServiceImpl"/>
+    </bean>
+    <bean id="orderItemServiceImpl" class="com.example.book.services.impls.OrderItemServiceImpl">
+        <rely name="orderItemDao" ref="orderItemImpl"/>
+        <rely name="cartService" ref="cartServiceImpl"/>
+        <rely name="bookService" ref="bookServiceImpl"/>
+    </bean>
+
+<!--  dao  -->
+    <bean id="userDaoImpl" class="com.example.book.dao.impls.UserDaoImpl"/>
+    <bean id="bookDaoImpl" class="com.example.book.dao.impls.BookDaoImpl"/>
+    <bean id="cartItemDaoImpl" class="com.example.book.dao.impls.CartItemDaoImpl"/>
+    <bean id="orderDaoImpl" class="com.example.book.dao.impls.OrderDaoImpl"/>
+    <bean id="orderItemImpl" class="com.example.book.dao.impls.OrderItemDaoImpl"/>
+</beans>
+
+<!--
+xml文档包括三个部分
+声明（必须在第一行）、类型定义、正文
+-->

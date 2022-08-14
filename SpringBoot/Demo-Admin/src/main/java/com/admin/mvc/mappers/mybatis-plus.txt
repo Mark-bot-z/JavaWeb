@@ -1,0 +1,29 @@
+readme:
+对于mybatis - plus的配置，只需要完成以下操作：
+
+1.dao层:只需要我们的Mapper继承 BaseMapper 就可以拥有crud能力
+2.service层:
+//继承一个mybatis - plus 提供的一个实现类
+@Service
+public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements UserService {
+}
+//继承一个总接口
+public interface UserService extends IService<User> {
+}
+
+
+//exports 对外暴露的包路径; 有些包你想要其他模块访问，有些包你不想要其他模块访问。
+// 有哪些包，你想要被其他模块访问的，这些包的名字就写在exports后面。 就像import一样，但是不是导入，是导出。
+//requires 需要依赖的其他模块名称; 本模块需要关联、依赖的其他模块，就把其他模块名称写在后面。 只有一个模块不用写
+
+module Demo.Admin {
+    requires org.mybatis.spring;
+    requires spring.context;
+    requires org.mybatis;
+    requires org.jetbrains.annotations;
+    requires spring.webmvc;
+    requires lombok;
+    requires spring.web;
+
+    .........
+}

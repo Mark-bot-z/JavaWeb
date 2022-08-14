@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.mvc.mappers.UserMapper">
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO mybatis.t_user(USERNAME, PASSWORD, AGE, SEX, EMAIL)
+        VALUES (#{userName}, #{password}, #{age}, #{sex}, #{email});
+    </insert>
+    <select id="getUsers" resultType="com.admin.mvc.mappers.pojo.User">
+        SELECT *
+        FROM mybatis.t_user
+    </select>
+</mapper>

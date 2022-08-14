@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mybatis.daos.mapper.SqlMapper">
+    <!--主键回填至入参对象中属性id-->
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO mybatis.t_user(USERNAME, PASSWORD, AGE, SEX, EMAIL)
+        VALUES (#{username}, #{password}, #{age}, #{sex}, #{email});
+    </insert>
+    <delete id="delUsers">
+        DELETE
+        FROM mybatis.t_user
+        WHERE id IN (${ids});
+    </delete>
+
+    <select id="getUserByLikeName" resultType="com.mybatis.daos.pojo.User">
+        <!--#         SELECT * FROM mybatis.t_user WHERE username LIKE '%${username}%'
+        #         SELECT * FROM mybatis.t_user WHERE username LIKE "%"#{username}"%" -->
+        SELECT * FROM mybatis.t_user WHERE username LIKE concat('%',#{username},'%')
+    </select>
+
+    <select id="getUserByTableName" resultType="com.mybatis.daos.pojo.User">
+        SELECT *
+        FROM ${tableName}
+    </select>
+</mapper>

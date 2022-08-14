@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mybatis.daos.mapper.EmployeeMapper">
+    <!--    自定义映射1-->
+    <resultMap id="empResultMap1" type="Employee">
+        <id property="eid" column="eid"/>
+        <result property="empName" column="emp_name"/>
+        <result property="email" column="email"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+    </resultMap>
+
+    <!--    自定义映射2:解决多对一映射-->
+    <resultMap id="empResultMap2" type="Employee">
+        <id property="eid" column="eid"/>
+        <result property="empName" column="emp_name"/>
+        <result property="email" column="email"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <!--        插件问题爆红-->
+        <result property="department.did" column="did"/>
+        <result property="department.deptName" column="dept_name"/>
+    </resultMap>
+
+    <!--    自定义映射3:解决多对一映射-->
+    <resultMap id="empResultMap3" type="Employee">
+        <id property="eid" column="eid"/>
+        <result property="empName" column="emp_name"/>
+        <result property="email" column="email"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <association property="department" javaType="com.mybatis.daos.pojo.Department">
+            <result property="did" column="did"/>
+            <result property="deptName" column="dept_name"/>
+        </association>
+    </resultMap>
+
+    <!--    自定义映射4:解决多对一映射-->
+    <resultMap id="empResultMap4" type="Employee">
+        <id property="eid" column="eid"/>
+        <result property="empName" column="emp_name"/>
+        <result property="email" column="email"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <result property="did" column="did"/>
+        <association property="department"
+                     select="com.mybatis.daos.mapper.DepartmentMapper.findDepartmentByID"
+                     column="did" fetchType="lazy"/>
+        <!-- column:下一步select的条件       -->
+    </resultMap>
+
+    <!--    使用配置文件中的settings全局映射配置-->
+    <!--    <select id="findAllEmps" resultType="com.mybatis.daos.pojo.Employee">-->
+    <!--        SELECT * FROM mybatis.t_emp-->
+    <!--    </select>-->
+
+    <select id="findAllEmps" resultMap="empResultMap1">
+        SELECT *
+        FROM mybatis.t_emp
+    </select>
+
+
+    <select id="findEmpByDID" resultType="employee">
+        SELECT *
+        FROM mybatis.t_emp
+        WHERE did = #{did}
+    </select>
+
+    <!--    级联属性赋值:多对一映射-->
+    <!--    <select id="findEmpInfoByID" resultMap="empResultMap2">-->
+    <!--        SELECT * FROM mybatis.t_emp JOIN mybatis.t_dept td on td.did = t_emp.did-->
+    <!--        WHERE t_emp.eid = #{eid}-->
+    <!--    </select>-->
+
+    <!--    通过association:多对一映射-->
+    <!--    <select id="findEmpInfoByID" resultMap="empResultMap3">-->
+    <!--        SELECT * FROM mybatis.t_emp JOIN mybatis.t_dept td on td.did = t_emp.did-->
+    <!--        WHERE t_emp.eid = #{eid}-->
+    <!--    </select>-->
+
+    <!--   通过association的分步查询：多对一映射-->
+    <!-- 分步查询的优点：可以实现延迟加载，但是必须在核心配置文件中设置全局配置信息：
+                lazyLoadingEnabled：延迟加载的全局开关。当开启时，所有关联对象都会延迟加载
+                aggressiveLazyLoading：当开启时，任何方法的调用都会加载该对象的所有属性。 否则，每个
+                属性会按需加载
+                此时就可以实现按需加载，获取的数据是什么，就只会执行相应的sql。此时可通过association和
+                collection中的fetchType属性设置当前的分步查询是否使用延迟加载，fetchType="lazy(延迟加
+                载)|eager(立即加载)"
+   -->
+    <!--    com.mybatis.daos.pojo.Department-->
+    <select id="findEmpInfoByID" resultMap="empResultMap4">
+        SELECT *
+        FROM mybatis.t_emp
+        WHERE t_emp.eid = #{eid}
+    </select>
+
+
+</mapper>

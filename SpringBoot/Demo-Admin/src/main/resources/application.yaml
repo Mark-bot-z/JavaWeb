@@ -1,0 +1,68 @@
+#spring:
+#  mvc:
+#    servlet:
+#      path: /Background-Management-System/
+
+#spring:
+#  thymeleaf:
+#    prefix: "classpath:templates/"
+#    suffix: ".html"
+
+#注意：此时没有加静态资源访问前缀
+# 配置mybatis规则
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml  #全局配置文件位置和configuration只能二选一，也就是14行和16行
+  mapper-locations: classpath:mybatis/mappers/*.xml  #sql映射文件位置
+#  configuration:
+#    map-underscore-to-camel-case: true
+
+#  Mapper接口--->绑定Xml
+#  <?xml version="1.0" encoding="UTF-8" ?>
+#  <!DOCTYPE mapper
+#  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+#  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+#  <mapper namespace="com.atguigu.admin.mapper.AccountMapper">
+#  <!--    public Account getAcct(Long id); -->
+#  <select id="getAcct" resultType="com.atguigu.admin.bean.Account">
+#  select * from  account_tbl where  id=#{id}
+#  </select>
+#  </mapper>
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 7758258
+    url: jdbc:mysql://localhost:3306/mybatis
+    druid:
+#      德鲁伊监控台的登录页
+      stat-view-servlet:
+        enabled: true
+        login-username: admin
+        login-password: 111
+        url-pattern: /druid/*
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+
+      aop-patterns: com.admin.*  #监控SpringBean
+
+      filters: stat,wall     # 底层开启功能，stat（sql监控），wall（防火墙）
+      filter:
+        stat: # 对上面filters里面的stat的详细配置
+          slow-sql-millis: 1000
+          logSlowSql: true
+          enabled: true
+        wall:
+          enabled: true
+          config:
+            drop-table-allow: false
+
+
+
+#debug: true

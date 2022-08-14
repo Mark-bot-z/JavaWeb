@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mybatis.daos.mapper.DynamicSqlMapper">
+
+
+    <select id="getEmpOfConditions1" resultType="com.mybatis.daos.pojo.Employee">
+        SELECT *
+        FROM mybatis.t_emp
+        WHERE 1 = 1
+        <if test="email !=null and email !=''">
+            AND email = #{email}
+        </if>
+        <if test="age !=null and age !=''">
+            AND age = #{age}
+        </if>
+    </select>
+    <!--
+        where和if一般结合使用：
+            a>若where标签中的if条件都不满足，则where标签没有任何功能，即不会添加where关键字
+            b>若where标签中的if条件满足，则where标签会自动添加where关键字，并将条件最前方多余的
+            and去掉
+            注意：where标签不能去掉条件最后多余的and
+    -->
+    <select id="getEmpOfConditions2" resultType="com.mybatis.daos.pojo.Employee">
+        SELECT *
+        FROM mybatis.t_emp
+        <where>
+            <if test="email !=null and email !=''">
+                AND email = #{email}
+            </if>
+            <if test="age !=null and age !=''">
+                OR age = #{age}
+            </if>
+        </where>
+    </select>
+
+    <!--
+    prefix：在trim标签中的内容的前面添加某些内容
+    prefixOverrides：在trim标签中的内容的前面去掉某些内容
+    suffix：在trim标签中的内容的后面添加某些内容
+    suffixOverrides：在trim标签中的内容的后面去掉某些内容
+    -->
+    <select id="getEmpOfConditions3" resultType="com.mybatis.daos.pojo.Employee">
+        SELECT *
+        FROM mybatis.t_emp
+        <trim prefix="WHERE" suffixOverrides="AND|OR">
+            <if test="email !=null and email !=''">
+                email = #{email} AND
+            </if>
+            <if test="age !=null and age !=''">
+                age = #{age} OR
+            </if>
+        </trim>
+    </select>
+
+    <!--    choose、when、otherwise相当于if...else if..else-->
+    <select id="getEmpOfConditions4" resultType="com.mybatis.daos.pojo.Employee">
+        SELECT
+        <!-- 插入常用的SQL片段 -->
+        <include refid="sql"/>
+        FROM mybatis.t_emp
+        <where>
+            <choose>
+                <when test="email !=null and email !=''">
+                    email = #{email}
+                </when>
+                <when test="email !=null and email !=''">
+                    age = #{age}
+                </when>
+                <!--                <otherwise>-->
+                <!--                </otherwise>-->
+            </choose>
+        </where>
+    </select>
+
+    <!--int insertMoreEmp(List<Emp> emps);-->
+    <insert id="insertMoreEmp">
+        insert into mybatis.t_emp(eid, emp_name, age, sex,email, did) values
+        <foreach collection="employees" item="emp" separator=",">
+            (null,#{emp.empName},#{emp.age},#{emp.sex},#{emp.email},null)
+        </foreach>
+    </insert>
+
+    <delete id="deleteMoreByArray">
+        delete from mybatis.t_emp where eid IN
+        <foreach collection="eids" item="eid" separator="," open="(" close=")">
+            eid = #{eid}
+        </foreach>
+    </delete>
+    <!--    &lt;!&ndash;int deleteMoreByArray(int[] eids);&ndash;&gt;-->
+    <!--    <delete id="deleteMoreByArray">-->
+    <!--        delete from mybatis.t_emp where eid in-->
+    <!--        <foreach collection="eids" item="eid" separator="," open="(" close=")">-->
+    <!--            #{eid}-->
+    <!--        </foreach>-->
+    <!--    </delete>-->
+
+    <!--    sql语句片段-->
+    <sql id="sql">eid,emp_name,age,sex,email,did</sql>
+</mapper>

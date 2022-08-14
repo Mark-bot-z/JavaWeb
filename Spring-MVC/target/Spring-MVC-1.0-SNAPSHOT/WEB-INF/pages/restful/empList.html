@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Info</title>
+    <script th:src="@{/static/script/vue.js}"></script>
+    <script th:src="@{/static/script/axios.min.js}"></script>
+    <script th:inline="javascript">
+        window.onload = function () {
+            var vue = new Vue({
+                el: "#dataTable",
+                data: {d: ''},
+                methods: {
+                    deleteEmployee: function (event) {
+                        //取消超链接的默认行为
+                        event.preventDefault();
+                        let href = event.target.href;
+                        axios({
+                            method: "DELETE",
+                            url: href,
+                            data: {}
+                        }).then(function (value) {
+                        }).catch(function (reason) {
+                            alert(reason)
+                        });
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+
+<table border="1" cellpadding="0" cellspacing="0" style="text-align: center;width:100%;height: 100%" id="dataTable" >
+    <tr>
+        <th colspan="5">Employee Info</th>
+    </tr>
+    <tr>
+        <th>id</th>
+        <th>lastName</th>
+        <th>email</th>
+        <th>gender</th>
+        <th>options(<a th:href="@{/Employee/toAdd}">add</a>)</th>
+    </tr>
+    <tr th:each="employee : ${#request.getAttribute('allEmployees')}" th:object="${employee}">
+        <td th:text="*{id}"></td>
+        <td th:text="*{lastName}"></td>
+        <td th:text="*{email}"></td>
+        <td th:text="*{gender}"></td>
+        <td>
+            <a class="deleteA" @click="deleteEmployee" th:href="@{'/Employee/'+${employee.id}}">delete</a>
+            <a th:href="@{'/Employee/'+${employee.id}}">update</a>
+        </td>
+    </tr>
+</table>
+
+
+
+</body>
+</html>

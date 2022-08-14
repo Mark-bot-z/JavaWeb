@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Day02-thymeleaf:war">
+    <output-path>$PROJECT_DIR$/Day02-thymeleaf/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>Day02-thymeleaf</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="Day02-thymeleaf-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="Day02-thymeleaf:war exploded" />
+    </root>
+  </artifact>
+</component>

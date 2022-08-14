@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--    组件扫描创建对象   -->
+    <context:component-scan base-package="com.spring.aspect.xml"/>
+    <!--    配置aop增强   -->
+    <aop:config>
+        <!--        配置切入点（一个或者多个需要增强的方法）-->
+        <aop:pointcut id="d" expression="execution(* com.spring.aspect.xml.Book.getName(..))"/>
+        <!--        配置切面（使增强类的方法作用在原始方法上）-->
+        <aop:aspect ref="bookProxy">
+            <!--        指定作用类型和作用方法和切入点    -->
+            <aop:before method="getNamePlus" pointcut-ref="d"/>
+        </aop:aspect>
+    </aop:config>
+</beans>

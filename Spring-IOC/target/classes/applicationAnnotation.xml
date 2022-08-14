@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--  扫描单个指定包下的所有类  -->
+<!--    <context:component-scan base-package="com.spring.annotation"/>-->
+
+<!--    &lt;!&ndash;  扫描多个指定包下的所有类  &ndash;&gt;-->
+<!--    <context:component-scan base-package="com.spring.annotation,com.spring.annotation.mvc.controller"/>-->
+
+        <!-- use-default-filters="false" 表示不使用默认配置   -->
+    <context:component-scan base-package="com.spring.annotation" use-default-filters="false">
+        <!-- include-filter(包含)  扫描带Service注解的类      -->
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+    </context:component-scan>
+
+<!--    <context:component-scan base-package="com.spring.annotation">-->
+<!--        &lt;!&ndash; include-filter(不包含)  不扫描带Controller注解的类      &ndash;&gt;-->
+<!--        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
+<!--    </context:component-scan>-->
+
+</beans>

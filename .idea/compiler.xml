@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Day04-filter-listerner" />
+        <module name="Day06-book" />
+        <module name="Demo-Admin" />
+        <module name="Spring-AOP" />
+        <module name="SpringBoot" />
+        <module name="MVC-Annotation" />
+        <module name="Day03-mvc" />
+        <module name="MBG" />
+        <module name="Spring-IOC" />
+        <module name="Day01-servlet" />
+        <module name="Spring-TransactionOperation" />
+        <module name="Day07-vue-axios-json" />
+        <module name="Day05-space" />
+        <module name="Spring-JdbcTemplate" />
+        <module name="Spring-SpringMVC-MyBatis" />
+        <module name="Day02-thymeleaf" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Day01-servlet" target="1.8" />
+      <module name="Day02-thymeleaf" target="1.8" />
+      <module name="Day03-mvc" target="1.8" />
+      <module name="Day04-filter-listerner" target="1.8" />
+      <module name="Day05-space" target="1.8" />
+      <module name="Day06-book" target="1.8" />
+      <module name="Day07-vue-axios-json" target="1.8" />
+      <module name="Demo-Admin" target="17" />
+      <module name="MBG" target="11" />
+      <module name="MVC-Annotation" target="11" />
+      <module name="MyBatis" target="11" />
+      <module name="Spring-AOP" target="11" />
+      <module name="Spring-IOC" target="11" />
+      <module name="Spring-JdbcTemplate" target="11" />
+      <module name="Spring-MVC" target="1.8" />
+      <module name="Spring-SpringMVC-MyBatis" target="11" />
+      <module name="Spring-TransactionOperation" target="11" />
+      <module name="SpringBoot" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Day05-space" options="-parameters" />
+      <module name="Day06-book" options="-parameters" />
+      <module name="Demo-Admin" options="-parameters" />
+      <module name="SpringBoot" options="-parameters" />
+    </option>
+  </component>
+</project>

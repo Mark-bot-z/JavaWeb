@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/Day01-servlet" />
+    <file type="web" url="file://$PROJECT_DIR$/Day02-thymeleaf" />
+    <file type="web" url="file://$PROJECT_DIR$/Day03-mvc" />
+    <file type="web" url="file://$PROJECT_DIR$/Day04-filter-listerner" />
+    <file type="web" url="file://$PROJECT_DIR$/Day05-space" />
+    <file type="web" url="file://$PROJECT_DIR$/Day06-book" />
+    <file type="web" url="file://$PROJECT_DIR$/Day07-vue-axios-json" />
+    <file type="web" url="file://$PROJECT_DIR$/Spring-SpringMVC-MyBatis" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/MyBatis/pom.xml" />
+        <option value="$PROJECT_DIR$/Day03-mvc/pom.xml" />
+        <option value="$PROJECT_DIR$/Day06-book/pom.xml" />
+        <option value="$PROJECT_DIR$/Spring-AOP/pom.xml" />
+        <option value="$PROJECT_DIR$/Spring-IOC/pom.xml" />
+        <option value="$PROJECT_DIR$/Spring-MVC/pom.xml" />
+        <option value="$PROJECT_DIR$/SpringBoot/pom.xml" />
+        <option value="$PROJECT_DIR$/Day05-space/pom.xml" />
+        <option value="$PROJECT_DIR$/Day01-servlet/pom.xml" />
+        <option value="$PROJECT_DIR$/Day02-thymeleaf/pom.xml" />
+        <option value="$PROJECT_DIR$/Spring-JdbcTemplate/pom.xml" />
+        <option value="$PROJECT_DIR$/Day07-vue-axios-json/pom.xml" />
+        <option value="$PROJECT_DIR$/Day04-filter-listerner/pom.xml" />
+        <option value="$PROJECT_DIR$/Spring-SpringMVC-MyBatis/pom.xml" />
+        <option value="$PROJECT_DIR$/Spring-TransactionOperation/pom.xml" />
+        <option value="$PROJECT_DIR$/SpringBoot/Demo-Admin/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" default="true" project-jdk-name="Java17" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

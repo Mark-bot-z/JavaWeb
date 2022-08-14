@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Day03-mvc:war">
+    <output-path>$PROJECT_DIR$/Day03-mvc/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>Day03-mvc</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="Day03-mvc-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="Day03-mvc:war exploded" />
+    </root>
+  </artifact>
+</component>

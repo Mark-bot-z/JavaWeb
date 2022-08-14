@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Day07-vue-axios-json:war">
+    <output-path>$PROJECT_DIR$/Day07-vue-axios-json/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>Day07-vue-axios-json</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="vaj-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="Day07-vue-axios-json:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>home</title>
+    <script th:src="@{/static/script/vue.js}"></script>
+    <script th:src="@{/static/script/axios.min.js}"></script>
+    <script th:inline="javascript">
+        window.onload = function () {
+            var vue = new Vue({
+                el: "#div1",
+                data: {emp_list: ''},
+                methods: {
+                    renew: function () {
+                        axios({
+                            method: "GET",
+                            url: [[${#request.getContextPath()+"/Employee/getAllEmp"}]],
+                            data: {}
+                        }).then(function (value) {
+                            vue.emp_list = value.data
+                            // document.write(value.data);
+                        }).catch(function (reason) {
+                            alert(reason)
+                        });
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+
+<h1 style="text-align: center ; color: green">首页</h1>
+
+<div id="div1">
+    <input type="button" @click="renew" value="更新" style="display: block"/>
+    <iframe id="if" :srcdoc="emp_list" width="1000px" height="500px" style="box-shadow: green;display: block;">
+    </iframe>
+</div>
+
+
+
+
+</body>
+</html>

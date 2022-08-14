@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--核心配置文件中的标签必须按照固定的顺序：
+properties?,settings?,typeAliases?,typeHandlers?,objectFactory?,objectWrapperFactory?,reflectorF
+actory?,plugins?,environments?,databaseIdProvider?,mappers?
+-->
+<configuration>
+
+    <settings>
+        <!--将表中字段的下划线自动转换为驼峰-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
+    </settings>
+
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"/>
+    </plugins>
+
+    <!--引入映射文件-->
+    <mappers>
+        <!--
+        以包为单位，将包下所有的映射文件引入核心配置文件
+        注意：此方式必须保证mapper接口和mapper映射文件必须在相同的包下
+-->
+        <!--        直接放在resource下-->
+        <package name="com.ssm.daos.mapper"/>
+    </mappers>
+</configuration>

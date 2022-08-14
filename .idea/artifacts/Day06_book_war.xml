@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Day06-book:war">
+    <output-path>$PROJECT_DIR$/Day06-book/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>Day06-book</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="book-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="Day06-book:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>up AND download</title>
+</head>
+<body>
+
+<a th:href="@{/File/download(type='mp3',fileName='Future Hit Makers - Time Bomb (Originally Performed By All Time Low)')}">
+  下载一个默认的MP3文件
+</a>
+
+<br>
+<hr>
+<form th:action="@{/File/up}" method="post" enctype="multipart/form-data">
+
+    <label>
+        选择音乐：
+        <input type="file" name="music" value="选 择 文 件">
+    </label>
+
+    <label>
+        完  成：
+        <input type="submit" value="上 传 文 件">
+    </label>
+
+</form>
+
+</body>
+</html>

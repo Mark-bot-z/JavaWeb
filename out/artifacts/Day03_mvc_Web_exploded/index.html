@@ -1,0 +1,59 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="css/index.css">
+	</head>
+
+	<script type="text/javascript">
+		function del(fid) {
+			if (confirm("是否删除？")){
+				window.location.href = '/Day02_thymeleaf_war_exploded/del.do?fid=' + fid;
+			}
+		}
+		//翻页
+		function TurnPages(pageNo) {
+			window.location.href = '/Day02_thymeleaf_war_exploded/index.do?pageNo=' + pageNo;
+		}
+	</script>
+
+	<body>
+		<div id="div_container">
+			<div id="div_fruit_list">
+				<p class="center f30">欢迎使用水果库存后台管理系统</p>
+				<form style="padding-left: 35%" th:action="@{index.do}">
+					<input type="hidden" name="oper" value="search">
+					查询关键字：<input type="text" name="keyword" value="">
+					<input class="btn" type="submit" value="查 询">
+				</form>
+				<div style="height: 30px ;width: 100% ; text-align: center">
+					<a style="height: 30px ;width: 50px ;" th:href="@{/add.html}" th:text="添加水果"></a>
+				</div>
+				<table id="tbl_fruit">
+					<tr>
+						<th class="w20">名称</th>
+						<th class="w20">单价</th>
+						<th class="w20">库存</th>
+						<th>操作</th>
+					</tr>
+					<tr th:if="${#lists.isEmpty(session.commodityList)}">
+						<td colspan="4">对不起，库存为空！</td>
+					</tr>
+					<tr th:unless="${#lists.isEmpty(session.commodityList)}" th:each="fruit : ${session.commodityList}">
+						<td><a th:href="@{/edit.do(fid=${fruit.fid})}" th:text="${fruit.fname}"></a></td>
+						<td th:text="${fruit.price}"></td>
+						<td th:text="${fruit.fcount}"></td>
+						<td><img src="imgs/del.jpg" class="delImg" th:onclick="|del(${fruit.getFid()})|"/></td>
+					</tr>
+				</table>
+
+				<div style="padding-left: 35%">
+					<input class="btn" type="button" value="首  页" th:onclick="|TurnPages(${1})|" th:disabled="${session.pageNo == 1}">
+					<input class="btn" type="button" value="上一页" th:onclick="|TurnPages(${session.pageNo - 1})|" th:disabled="${session.pageNo == 1}">
+					<input class="btn" type="button" value="下一页" th:onclick="|TurnPages(${session.pageNo + 1})|"  th:disabled="${session.pageNo == session.totalPages}">
+					<input class="btn" type="button" value="尾  页" th:onclick="|TurnPages(${session.totalPages})|" th:disabled="${session.pageNo == session.totalPages}">
+				</div>
+
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+</head>
+<body>
+欢迎来到spring MVC 测试主页
+<br>
+测试value属性
+<a th:href="@{/Test/target1}" style="color: orange">去往测试目标页面--->/Test/target1</a>
+<br>
+<a th:href="@{/Test/target2}" style="color: orange">去往测试目标页面--->/Test/target2</a>
+
+<br>
+<form th:action="@{/Test/target1}" method="post">
+    <input type="submit" value="测试method属性">
+</form>
+
+<br>
+测试restful占位符
+<a th:href="@{/Test/target/1/admin}" style="color: orange">去往测试目标页面--->/Test/target/1</a>
+
+<br>
+原始获取请求参数
+<form th:action="@{/Test/target}" method="post">
+    <label>
+        <input type="text" name="username">
+        <input type="text" name="password">
+    </label>
+    <input type="submit" value="提交">
+</form>
+
+<br>
+<form th:action="@{/Test/target}" method="get">
+    <label>
+        <input type="text" name="username">
+        <input type="text" name="password">
+
+        <input type="checkbox" name="hobbies" value="1">1
+        <input type="checkbox" name="hobbies" value="2">2
+        <input type="checkbox" name="hobbies" value="3">3
+    </label>
+    <input type="submit" value="提交">
+</form>
+
+<br>
+<form th:action="@{/Test/target/params}">
+    <label>
+        <input type="text" name="username">
+        <input type="text" name="password">
+
+        <input type="checkbox" name="hobbies" value="1">1
+        <input type="checkbox" name="hobbies" value="2">2
+        <input type="checkbox" name="hobbies" value="3">3
+    </label>
+    <input type="submit" value="提交">
+</form>
+
+</body>
+</html>

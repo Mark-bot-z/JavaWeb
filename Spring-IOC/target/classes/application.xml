@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- 类似于自定义ssm框架的兵工厂   -->
+    <!--    <bean id="user" class="com.spring.xml.User"/>-->
+
+    <!--    <bean id="head" class="com.spring.xml.Head">-->
+    <!--        <property name="eye" value="黑眼睛"/>-->
+    <!--        <property name="hair" value="黑头发"/>-->
+    <!--    </bean>-->
+
+    <!--    <bean id="user" class="com.spring.xml.User">-->
+    <!--&lt;!&ndash;        <property name="head" ref="head"/>&ndash;&gt;-->
+    <!--        <property name="head">-->
+    <!--            <bean class="com.spring.xml.Head">-->
+    <!--                <property name="eye" value="蓝眼睛"/>-->
+    <!--            </bean>-->
+    <!--        </property>-->
+    <!--    </bean>-->
+
+    <bean id="user" class="com.spring.xml.User">
+        <property name="head" ref="head"/>
+        <property name="head.hair" value="蓝头发"/>
+    </bean>
+
+    <bean id="head" class="com.spring.xml.Head">
+        <constructor-arg name="eye" value="黑眼睛"/>
+        <constructor-arg name="hair" value="黑头发"/>
+    </bean>
+
+    <!--    <bean id="book" class="com.spring.xml.Book">-->
+    <!--        <property name="bookName">-->
+    <!--            <null/>-->
+    <!--        </property>-->
+    <!--    </bean>-->
+
+    <bean id="book" class="com.spring.xml.Book">
+        <property name="bookName">
+            <value><![CDATA[<<HAO>>]]></value>
+        </property>
+    </bean>
+
+    <bean id="node" class="com.spring.xml.Gather.Node">
+        <property name="name" value="oppo"/>
+    </bean>
+
+    <bean id="gather" class="com.spring.xml.Gather">
+        <property name="nodeMap">
+            <map>
+                <entry key="ks" value-ref="node"/>
+            </map>
+        </property>
+        <property name="nodeList">
+            <list>
+                <ref bean="node"/>
+            </list>
+        </property>
+        <property name="nodes">
+            <array>
+                <ref bean="node"/>
+            </array>
+        </property>
+        <property name="ints">
+            <array>
+                <value>1</value>
+                <value>3</value>
+                <value>2</value>
+            </array>
+        </property>
+        <property name="listName">
+            <list>
+                <value>javaNb</value>
+                <value>javaNb</value>
+                <value>javaNb</value>
+            </list>
+        </property>
+        <property name="setAge">
+            <set>
+                <value>1</value>
+                <value>3</value>
+                <value>2</value>
+            </set>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="java" value="1"/>
+                <entry key="f" value="1234"/>
+                <entry key="fs" value="34"/>
+            </map>
+        </property>
+    </bean>
+
+    <util:list id="publicList">
+        <!--   也可以使用这个<value>哈哈哈</value>-->
+        <ref bean="node"/>
+    </util:list>
+
+    <bean id="t" class="com.spring.xml.T">
+        <property name="nodeList" ref="publicList"/>
+    </bean>
+
+
+    <bean id="myFactory" class="com.spring.xml.factory.MyFactory"/>
+
+
+    <bean id="testUser" class="com.spring.xml.User" scope="prototype"/>
+
+
+    <bean id="myBean" class="com.spring.xml.beans.MyBean" init-method="initialize" destroy-method="destroy">
+        <property name="name" value="Mark"/>
+    </bean>
+    <bean id="beansHandle" class="com.spring.xml.beans.BeansHandler"/>
+
+    <bean id="emp" class="com.spring.xml.autowire.Emp" autowire="byName">
+        <!--        <property name="dept" ref="dept"/>-->
+    </bean>
+
+    <bean id="dept" class="com.spring.xml.autowire.Dept"/>
+    <bean id="dept1" class="com.spring.xml.autowire.Dept"/>
+
+<!--    使用命名空间引入类路径下的外部属性文件  -->
+    <context:property-placeholder location="classpath:pool_info.properties"/>
+
+<!--    配置连接池读取文件信息(需要有连接池的相关jar包)-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${prop.driverClassName}"/>
+        <property name="url" value="${prop.url}"/>
+        <property name="username" value="${prop.username}"/>
+        <property name="password" value="${prop.password}"/>
+    </bean>
+
+<!--    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">-->
+<!--        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>-->
+<!--        <property name="url" value="jdbc:mysql://localhost:3306/bookdb"/>-->
+<!--        <property name="username" value="root"/>-->
+<!--        <property name="password" value="7758258"/>-->
+<!--    </bean>-->
+
+</beans>

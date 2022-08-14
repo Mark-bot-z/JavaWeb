@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>shared</title>
+</head>
+<body>
+<span th:text="${#request.getAttribute('success')}"></span>
+<span th:text="${#request.getSession().getAttribute('success')}"></span>
+<span th:text="${#request.getServletContext().getAttribute('success')}"></span>
+</body>
+</html>

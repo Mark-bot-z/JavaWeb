@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE beans [
+        <!ELEMENT beans (bean*)>
+        <!ELEMENT bean (rely*)>
+        <!ELEMENT rely (#PCDATA)>
+
+        <!ATTLIST bean id ID #REQUIRED>
+        <!ATTLIST bean class CDATA #IMPLIED>
+        <!ATTLIST rely name CDATA #IMPLIED>
+        <!ATTLIST rely ref IDREF #IMPLIED>
+        ]>
+
+<!-- 配置并链接各个bean之间的依赖 -->
+<beans>
+    <bean id="frame" class="com.example.ssm.core.FrameController"/>
+    <bean id="user" class="com.example.chatspace.controllers.UserController">
+        <rely name="userBasicService" ref="userBasicServiceImpl"/>
+        <rely name="topicService" ref="topicServiceImpl"/>
+    </bean>
+    <bean id="topic" class="com.example.chatspace.controllers.TopicController">
+        <rely  name="topicService" ref="topicServiceImpl"/>
+    </bean>
+    <bean id="reply" class="com.example.chatspace.controllers.ReplyController">
+        <rely  name="replyService" ref="replyServiceImpl"/>
+    </bean>
+
+
+
+    <bean id="userBasicServiceImpl" class="com.example.chatspace.services.impls.UserBasicServiceImpl">
+        <rely name="userBasicDao" ref="userBasicDaoImpl"/>
+    </bean>
+    <bean id="topicServiceImpl" class="com.example.chatspace.services.impls.TopicServiceImpl">
+        <rely name="topicDao" ref="topicDaoImpl"/>
+        <rely  name="replyService" ref="replyServiceImpl"/>
+        <rely  name="userBasicService" ref="userBasicServiceImpl"/>
+    </bean>
+    <bean id="replyServiceImpl" class="com.example.chatspace.services.impls.ReplyServiceImpl">
+        <rely name="replyDao" ref="replyDaoImpl"/>
+        <rely name="userBasicService" ref="userBasicServiceImpl"/>
+        <rely name="hostReplyService" ref="hostReplyServiceImpl"/>
+    </bean>
+    <bean id="hostReplyServiceImpl" class="com.example.chatspace.services.impls.HostReplyServiceImpl">
+        <rely name="hostReplyDao" ref="hostReplyDaoImpl"/>
+    </bean>
+
+
+
+    <bean id="topicDaoImpl" class="com.example.chatspace.dao.impls.TopicDaoImpl"/>
+    <bean id="userBasicDaoImpl" class="com.example.chatspace.dao.impls.UserBasicDaoImpl"/>
+    <bean id="replyDaoImpl" class="com.example.chatspace.dao.impls.ReplyDaoImpl"/>
+    <bean id="hostReplyDaoImpl" class="com.example.chatspace.dao.impls.HostReplyDaoImpl"/>
+</beans>
+
+<!--
+xml文档包括三个部分
+声明（必须在第一行）、类型定义、正文
+-->

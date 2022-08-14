@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 配置并链接各个bean之间的依赖 -->
+<beans>
+    <bean id="fruit" class="com.example.fruit.controllers.FruitController">
+        <rely name="fruitService" ref="fruitService"/>
+    </bean>
+    <bean id="fruitService" class="com.example.fruit.services.impls.FruitServiceImpl">
+        <rely name="commodityNorm" ref="fruitDao"/>
+    </bean>
+    <bean id="fruitDao" class="com.example.fruit.dao.impls.CommodityImpl"/>
+</beans>
+
+<!--
+xml文档包括三个部分
+声明（必须在第一行）、类型定义、正文
+-->

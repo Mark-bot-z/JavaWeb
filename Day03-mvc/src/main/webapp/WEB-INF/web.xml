@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <filter>
+        <filter-name>encoding</filter-name>
+        <filter-class>com.example.ssm.filters.A_CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>UTF-8</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>GBK</param-name>
+            <param-value>GBK</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ContentType</param-name>
+            <param-value>text/html;charset=utf-8</param-value>
+        </init-param>
+    </filter>
+    <filter>
+        <filter-name>affairs</filter-name>
+        <filter-class>com.example.ssm.filters.B_AffairsManageFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>affairs</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>encoding</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+
+    <listener>
+        <listener-class>com.example.ssm.listeners.ApplicationContextListener</listener-class>
+    </listener>
+
+    <context-param>
+        <param-name>view-prefix</param-name>
+        <param-value>/</param-value>
+    </context-param>
+    <context-param>
+        <param-name>view-suffix</param-name>
+        <param-value>.html</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>appXML</param-name>
+        <param-value>static/application.xml</param-value>
+    </context-param>
+</web-app>

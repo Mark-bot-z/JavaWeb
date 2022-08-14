@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mybatis.daos.mapper.DepartmentMapper">
+    <select id="findDepartmentByID" resultType="com.mybatis.daos.pojo.Department">
+        SELECT *
+        FROM mybatis.t_dept
+        WHERE did = #{did}
+    </select>
+
+    <!--    映射一：解决一对多-->
+    <resultMap id="map1" type="Department">
+        <result property="did" column="did"/>
+        <result property="deptName" column="dept_name"/>
+        <!--
+        ofType：设置collection标签所处理的集合属性中存储数据的类型
+        -->
+        <collection property="employees"  ofType="Employee">
+            <id property="eid" column="eid"/>
+            <result property="empName" column="emp_name"/>
+            <result property="email" column="email"/>
+            <result property="age" column="age"/>
+            <result property="sex" column="sex"/>
+            <result property="did" column="did"/>
+        </collection>
+    </resultMap>
+
+    <!--    映射二：解决一对多-->
+    <resultMap id="map2" type="Department">
+        <result property="did" column="did"/>
+        <result property="deptName" column="dept_name"/>
+        <collection property="employees" select="com.mybatis.daos.mapper.EmployeeMapper.findEmpByDID" column="did"/>
+    </resultMap>
+
+<!--    <select id="findDepartmentByIDInfo" resultMap="map1">-->
+<!--        SELECT *-->
+<!--        FROM mybatis.t_dept-->
+<!--                 JOIN mybatis.t_emp te ON t_dept.did = te.did-->
+<!--        WHERE te.did = #{did}-->
+<!--    </select>-->
+
+    <select id="findDepartmentByIDInfo" resultMap="map2">
+        SELECT *
+        FROM mybatis.t_dept
+        WHERE did = #{did}
+    </select>
+
+
+</mapper>
