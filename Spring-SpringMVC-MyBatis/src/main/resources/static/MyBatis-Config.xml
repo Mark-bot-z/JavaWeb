@@ -27,4 +27,6 @@ actory?,plugins?,environments?,databaseIdProvider?,mappers?
         <!--        直接放在resource下-->
         <package name="com.ssm.daos.mapper"/>
     </mappers>
+
+
 </configuration>
