@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>home</title>
-
     <!--    @{/static/js/jquery-1.7.2.js} 最前面要加上/ 符号 themeleaf 解析时会加上程序的根-->
     <script th:src="@{/static/js/jquery_2.1.1_jquery.js}"></script>
     <script th:src="@{/static/js/vue.js}"></script>
@@ -89,16 +88,21 @@
                 <nav aria-label="Page navigation">
                     <ul class="pagination">
                         <li v-if="!emps_info.isFirstPage">
-                            <a @click="getEmpsByPages(emps_info.pageNum-1)">首 页</a>
+                            <a @click="getEmpsByPages(1)">首 页</a>
                         </li>
                         <li v-if="!emps_info.isFirstPage">
                             <a @click="getEmpsByPages(emps_info.pageNum-1)" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <li v-for="(item,index) in emps_info.navigatepageNums">
+
+                        <li v-for="(item,index) in emps_info.navigatepageNums" v-if="emps_info.pageNum == item" class="active">
                             <a @click="getEmpsByPages(item)">{{item}}</a>
                         </li>
+                        <li v-else="emps_info.pageNum != item"  >
+                            <a @click="getEmpsByPages(item)">{{item}}</a>
+                        </li>
+
                         <li v-if="!emps_info.isLastPage">
                             <a @click="getEmpsByPages(emps_info.pageNum+1)" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
@@ -114,6 +118,7 @@
     </div>
 </div>
 </body>
+<!--th:inline="javascript" 开启thmeleaf 内联解析 作用于javascript标签内-->
 <script th:inline="javascript">
     window.onload = function () {
         var vue = new Vue({

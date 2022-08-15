@@ -11,16 +11,8 @@
   <component name="ChangeListManager">
     <list default="true" id="72641cf1-8e4e-4858-ae99-b54852c6b67f" name="默认变更列表" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyBatis/MBG/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/MyBatis/MBG/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-SpringMVC-MyBatis/SSM-CRUD/SSM-CRUD.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-SpringMVC-MyBatis/SSM-CRUD/SSM-CRUD.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-SpringMVC-MyBatis/SSM-CRUD/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-SpringMVC-MyBatis/SSM-CRUD/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-SpringMVC-MyBatis/SSM-CRUD/src/main/java/com/ssm/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-SpringMVC-MyBatis/SSM-CRUD/src/main/java/com/ssm/controller/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-SpringMVC-MyBatis/SSM-CRUD/src/main/resources/App-config/MyBatis-Config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-SpringMVC-MyBatis/SSM-CRUD/src/main/resources/App-config/MyBatis-Config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-SpringMVC-MyBatis/SSM-CRUD/src/main/resources/App-config/SpringFrameWork.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-SpringMVC-MyBatis/SSM-CRUD/src/main/resources/App-config/SpringFrameWork.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-SpringMVC-MyBatis/SSM-CRUD/src/main/resources/App-config/pool_info.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-SpringMVC-MyBatis/SSM-CRUD/src/main/resources/App-config/pool_info.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spring-SpringMVC-MyBatis/SSM-CRUD/src/main/webapp/WEB-INF/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-SpringMVC-MyBatis/SSM-CRUD/src/main/webapp/WEB-INF/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-SpringMVC-MyBatis/SSM-CRUD/src/main/webapp/static/js/jquery-1.7.2.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-SpringMVC-MyBatis/src/main/resources/static/MyBatis-Config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-SpringMVC-MyBatis/src/main/resources/static/MyBatis-Config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-SpringMVC-MyBatis/SSM-CRUD/target/SSM-CRUD-1.0-SNAPSHOT/WEB-INF/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-SpringMVC-MyBatis/SSM-CRUD/target/SSM-CRUD-1.0-SNAPSHOT/WEB-INF/home.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -362,7 +354,7 @@
       <workItem from="1660479904675" duration="1695000" />
       <workItem from="1660481634940" duration="602000" />
       <workItem from="1660484553747" duration="20942000" />
-      <workItem from="1660544723388" duration="31680000" />
+      <workItem from="1660544723388" duration="34357000" />
     </task>
     <task id="LOCAL-00001" summary="JavaWeb-v1">
       <created>1660461945346</created>
@@ -385,7 +377,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660499408494</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="fixup! JavaWeb-v1">
+      <created>1660578582693</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1660578582693</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

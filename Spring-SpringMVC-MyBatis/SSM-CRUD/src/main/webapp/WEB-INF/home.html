@@ -95,9 +95,16 @@
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <li v-for="(item,index) in emps_info.navigatepageNums">
+
+                        <!--这两个li 标签看作是放在for里的-->
+                        <li v-for="(item,index) in emps_info.navigatepageNums" v-if="emps_info.pageNum == item"
+                            class="active">
                             <a @click="getEmpsByPages(item)">{{item}}</a>
                         </li>
+                        <li v-else="emps_info.pageNum != item">
+                            <a @click="getEmpsByPages(item)">{{item}}</a>
+                        </li>
+
                         <li v-if="!emps_info.isLastPage">
                             <a @click="getEmpsByPages(emps_info.pageNum+1)" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
@@ -113,6 +120,7 @@
     </div>
 </div>
 </body>
+<!--th:inline="javascript" 开启thmeleaf 内联解析 作用于javascript标签内-->
 <script th:inline="javascript">
     window.onload = function () {
         var vue = new Vue({
