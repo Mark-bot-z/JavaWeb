@@ -22,4 +22,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> employees = empMapper.selectByExample(null);
         return new PageInfo<>(employees, 5);
     }
+
+    @Override
+    public void addEmployee(Employee employee) {
+        empMapper.insert(employee);
+    }
 }

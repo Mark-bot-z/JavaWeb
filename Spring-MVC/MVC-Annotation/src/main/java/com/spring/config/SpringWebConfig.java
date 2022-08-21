@@ -29,6 +29,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 //这两注解要写一起
 @ComponentScan(basePackages = {"com.spring.mvc"})
 public class SpringWebConfig implements WebMvcConfigurer {
+
     /*
      * 1.视图解析器、2.默认请求视图引导器（view-controller）
      * 3.开放静态资源访问（default-servlet-handler）
@@ -59,6 +60,7 @@ public class SpringWebConfig implements WebMvcConfigurer {
         templateEngine.setTemplateResolver(templateResolver);
         return templateEngine;
     }
+
 
     //生成视图解析器并未解析器注入模板引擎
     @Bean

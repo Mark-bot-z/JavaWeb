@@ -10,6 +10,7 @@ public interface EmployeeService {
     PageInfo<Employee> findEmployeesByPageNums(Integer pageNums);
 
 
+    void addEmployee(Employee employee);
 
 
 }

@@ -3,25 +3,13 @@ package com.boot.config;
 import com.boot.daos.pojo.Car;
 import com.boot.daos.pojo.Pet;
 import com.boot.daos.pojo.User;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.format.FormatterRegistry;
-import org.springframework.http.HttpInputMessage;
-import org.springframework.http.HttpOutputMessage;
-import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.http.converter.HttpMessageNotWritableException;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 
-import java.io.IOException;
 import java.util.List;
 
 //配置类==xxx.xml
@@ -73,23 +61,11 @@ public class AppConfig {
             *   1.遍历循环所有当前系统的 MessageConverter 找到支持操作的报文转换器，列出所有支持转换的媒体类型
             *   2.看哪一个MessageConverter能够转换这个策略，然后调用此方法
             * */
-            //            对响应报文转换器的扩展
+            //            对响应报文转换器的扩展同时也是请求转换器的扩展
             @Override
             public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
 //                converters中添加HttpMessageConverter的扩展类
                 WebMvcConfigurer.super.extendMessageConverters(converters);
-            }
-
-//            请求转换器的扩展
-            @Override
-            public void addFormatters(FormatterRegistry registry) {
-//                registry.addConverter(new Converter<Object, Object>() {
-//                    @Override
-//                    public Object convert(Object source) {
-//                        return null;
-//                    }
-//                });
-                WebMvcConfigurer.super.addFormatters(registry);
             }
         };
     }

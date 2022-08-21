@@ -10,9 +10,9 @@
 ">
 <!--    service -->
 
-    <context:component-scan base-package="com.ssm.service"/>
-
-
+    <context:component-scan base-package="com.ssm">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>
 
     <context:property-placeholder location="classpath:App-config/pool_info.properties"/>
 
@@ -51,6 +51,8 @@
 <!--        指定执行类型 BATCH -->
         <constructor-arg name="executorType" value="BATCH"/>
     </bean>
+
+
 
 
 

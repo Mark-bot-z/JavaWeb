@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>home</title>
@@ -9,13 +9,16 @@
     <script th:src="@{/static/js/axios.min.js}"></script>
 
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}"
-          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+<!--    <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}">-->
+
+<!--    &lt;!&ndash; 最新的 Bootstrap 核心 JavaScript 文件 &ndash;&gt;-->
+<!--    <script th:src="@{/static/js/bootstrap.min.js}"></script>-->
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-    <script th:src="@{/static/js/bootstrap.min.js}"
-            integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
-            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 
     <!--Bootstrap's JavaScript requires jQuery version 1.9.1 or higher, but lower than version 4-->
 </head>
@@ -32,7 +35,10 @@
         <!--        按钮-->
         <div class="row">
             <div class="col-md-4 col-md-offset-10">
-                <button class="btn btn-primary">新 增</button>
+                <!--bootstrap实现弹出模态框-->
+                <button @click="getAllDepartment" class="btn btn-primary" data-target="#myModal" data-toggle="modal">新
+                    增
+                </button>
                 <button class="btn btn-danger">删 除</button>
             </div>
         </div>
@@ -118,25 +124,148 @@
             </div>
         </div>
     </div>
+
+    <!--fade 淡入淡出-->
+    <div class="modal fade" id="myModal" aria-labelledby="myModallabel" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h5 class="modal-title" id="myModallabel">员工认证信息</h5>
+                </div>
+                <form class="form-horizontal">
+                    <div class="modal-body">
+                        <div class="form-group col-md-8">
+                            <label class="control-label col-lg-4">员工姓名：</label>
+                            <div class="col-lg-6">
+                                <input type="text" id="empName" value="" name="empName" placeholder="员工姓名"
+                                       class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-lg-4">年 龄：</label>
+                            <div class="col-lg-6">
+                                <input type="text" id="age" value="" name="age" placeholder="年 龄" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label class="control-label col-lg-2">邮 箱：</label>
+                            <div class="col-lg-8">
+                                <input type="email" id="email" value="" name="email" placeholder="邮 箱"
+                                       class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">性 别：</label>
+                            <div class="col-lg-5">
+                                <input type="radio"  value="男" name="sex" placeholder="性 别">
+                                男
+                                <input type="radio"  value="女" name="sex" placeholder="性 别">
+                                女
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-7">
+                                <label for="inputState">所属部门: </label>
+                                <select name="did" id="inputState" class="form-control">
+                                    <option selected>请选择...</option>
+                                    <option v-for="(item,index) in dept_info" v-bind:value="item.did">
+                                        {{item.deptName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-default" type="button" data-dismiss="modal">关 闭</button>
+                        <button class="btn btn-success" type="button" @click="addEmployee">确认并提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </div>
 </body>
 <!--th:inline="javascript" 开启thmeleaf 内联解析 作用于javascript标签内-->
 <script th:inline="javascript">
+    let root = [[${#request.getServletContext().getContextPath()}]];
     window.onload = function () {
         var vue = new Vue({
             "el": "#dataTable",
             data: {
                 emps_info: null,
+                dept_info: null,
             },
             methods: {
                 //在 @click 绑定方法的时候需要传入某个参数，同时又需要 event 时，可以通过 $event 传入事件。
                 getEmpsByPages: function (pages) {
                     axios({
                         method: "GET",
-                        url: [[${#request.getServletContext().getContextPath()}]] + "/home/findEmployeesByPageNums/" + pages,
+                        url: root + "/employee/findEmployeesByPageNums/" + pages,
                     })
                         .then(function (value) {
                             vue.emps_info = value.data
+                        })
+                        .catch(function (reason) {
+                            console.log(reason);
+                        });
+                },
+                addEmployee: function () {
+                    axios({
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        method: "POST",
+                        url: root + "/employee/",
+                        //params:用于携带请求参数 和 模拟表单 （总之就是键值对）
+                        params:{},
+                        //data: 用于发送json，但要在请求之前对data传参进行格式转换
+                        data: {
+                            empName: document.getElementById('empName').value,
+                            age: document.getElementById('age').value,
+                            email: document.getElementById('email').value,
+                            sex: vue.getCheckedValue(),
+                            did: document.getElementById('inputState').options[document.getElementById('inputState').selectedIndex].value
+                               // 1:拿到select对象： `var myselect=document.getElementById("select");
+                                // 2：拿到选中项的索引：var index=myselect.selectedIndex ; // selectedIndex代表的是你所选中项的index
+                                // 3:拿到选中项options的value： myselect.options[index].value;
+                        },
+                        // 在请求之前对data传参进行格式转换
+                        transformRequest: [function(data) {
+                            data = JSON.stringify(data)
+                            return data
+                        }],
+                    })
+                        .then(function (value) {
+                            vue.emps_info = value.data
+                        })
+                        .catch(function (reason) {
+                            console.log(reason);
+                        });
+                },
+                //取得选中的Radio的value
+                getCheckedValue: function () {
+                    var radios = document.getElementsByName("sex");
+                    for (var i = 0; i < radios.length; i++) {
+                        var radio = radios[i];
+                        if (radio.checked) { //判断是否选中
+                            return radio.value
+                        }
+                    }
+                },
+                getAllDepartment: function () {
+                    axios({
+                        method: "GET",
+                        url: root + "/department/findDepartments",
+                    })
+                        .then(function (value) {
+                            vue.dept_info = value.data
                         })
                         .catch(function (reason) {
                             console.log(reason);
