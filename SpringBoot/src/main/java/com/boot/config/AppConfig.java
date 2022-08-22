@@ -50,7 +50,7 @@ public class AppConfig {
     public WebMvcConfigurer webMvcConfigurer(){
         return new WebMvcConfigurer() {
 
-            //            自定义的内容协商
+            //自定义的内容协商
             @Override
             public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
 //                configurer 中添加两种协商策略：基于请求参数、基于请求头的

@@ -49,7 +49,7 @@
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg name="sqlSessionFactory" ref="sessionFactoryBean"/>
 <!--        指定执行类型 BATCH -->
-        <constructor-arg name="executorType" value="BATCH"/>
+        <constructor-arg name="executorType" value="SIMPLE"/>
     </bean>
 
 

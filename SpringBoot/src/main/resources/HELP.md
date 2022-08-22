@@ -9,4 +9,3 @@
 - [构建 RESTful Web 服务](https:spring.ioguidesgsrest-service)
 - [使用 Spring MVC 提供 Web 内容](https:spring.ioguidesgsserving-web-content)
 - [使用 Spring 构建 REST 服务](https:spring.ioguidestutorialsrest)
-

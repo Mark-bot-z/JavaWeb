@@ -5,7 +5,11 @@ import com.ssm.daos.pojo.Employee;
 import com.ssm.service.norm.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/employee")
@@ -68,26 +72,38 @@ public class EmployeeController {
 //    通过 public Object deserializeFromObject(JsonParser p, DeserializationContext ctxt) throws IOException方法进行解析。
 
     @PostMapping("/")
-    public String addNewEmployee(@RequestBody Employee employee) {
+    public String addNewEmployee(@RequestBody @Valid Employee employee, BindingResult result) {
+        if (result.hasErrors()) {
+            //可以封装成一个Information返回
+            return "forward:/employee/sendMessage/"+Objects.requireNonNull(result.getFieldError()).getDefaultMessage();
+        }
         employeeService.addEmployee(employee);
         return FIND_EMPLOYEES_BY_PAGE_NUMS_1;
     }
 
+    @RequestMapping("/sendMessage/{msg}")
+    @ResponseBody
+    public String sendMessage(@PathVariable("msg") String msg){
+        return msg;
+    }
+
     //    删除员工
-    @DeleteMapping("/{eid}")
-    public String deleteEmployee(@PathVariable("eid") Integer eid) {
-        System.out.println(eid);
-
-
-        return FIND_EMPLOYEES_BY_PAGE_NUMS_1;
+    @DeleteMapping("/{eids}")
+    @ResponseBody
+    public String deleteEmployee(@PathVariable("eids") String eids) {
+        Integer integer;
+        if (!eids.contains(",")){
+            integer = employeeService.delEmployee(Integer.valueOf(eids));
+        }else{
+            integer = employeeService.delBatchEmp(eids);
+        }
+        return integer > 0 ? "删除成功！！！":"删除失败！！！";
     }
 
     //    编辑员工信息
     @PutMapping("/")
-    public String editEmployeeInfo(Employee employee) {
-        System.out.println(employee);
-
-
+    public String editEmployeeInfo(@RequestBody Employee employee) {
+        employeeService.updateEmployee(employee);
         return FIND_EMPLOYEES_BY_PAGE_NUMS_1;
     }
 

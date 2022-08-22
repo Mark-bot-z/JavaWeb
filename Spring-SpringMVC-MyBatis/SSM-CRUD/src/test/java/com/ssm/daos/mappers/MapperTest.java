@@ -110,5 +110,12 @@ class MapperTest {
     }
 
 //    [ { "eid": 1, "empName": "MARK", "age": 12, "email": "123@QQ.COM", "sex": "男", "did": 1 }, { "eid": 2, "empName": "keks", "age": 43, "email": "123@QQ.COM", "sex": "女", "did": 2 }, { "eid": 3, "empName": "sdf", "age": 23, "email": "123@QQ.COM", "sex": "女", "did": 3 }, { "eid": 4, "empName": "kjle", "age": 57, "email": "123@QQ.COM", "sex": "男", "did": 1 }, { "eid": 5, "empName": "uiqw", "age": 49, "email": "123@QQ.COM", "sex": "女", "did": 2 }, { "eid": 6, "empName": "klelw", "age": 31, "email": "123@QQ.COM", "sex": "男", "did": 3 }, { "eid": 10, "empName": "ke", "age": 12, "email": "11@163.com", "sex": "女", "did": null }, { "eid": 11, "empName": "sdfa", "age": 8, "email": "11@163.com", "sex": "男", "did": null }, { "eid": 14, "empName": "kfe", "age": 34, "email": "123@qq.com", "sex": "女", "did": 3 }, { "eid": 115, "empName": "c09", "age": 46, "email": "c09@qq.com", "sex": "女", "did": 1 }, { "eid": 116, "empName": "a1b", "age": 30, "email": "a1b@qq.com", "sex": "男", "did": 2 }, { "eid": 117, "empName": "ef6", "age": 57, "email": "ef6@qq.com", "sex": "女", "did": 1 }, { "eid": 118, "empName": "a36", "age": 32, "email": "a36@qq.com", "sex": "男", "did": 1 }, { "eid": 119, "empName": "4ee", "age": 52, "email": "4ee@qq.com", "sex": "女", "did": 1 }, { "eid": 120, "empName": "fea", "age": 55, "email": "fea@qq.com", "sex": "男", "did": 1 } ]}
-
+//10,ke,12,11@163.com,女,
+    @Test
+    void f(){
+//        employeeMapper.updateByPrimaryKeySelective(new Employee(10,"ke",12,"11@163.com","女",3));
+//        mybatis里面有一个配置属性defaultExecutorType，当这个值为BATCH时， 返回结果就只有-2147482646 这一个值。
+//-2147482646
+        System.out.println(employeeMapper.deleteByPrimaryKey(-32));
+    }
 }

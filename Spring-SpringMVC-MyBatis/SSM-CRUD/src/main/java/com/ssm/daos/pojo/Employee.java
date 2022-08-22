@@ -1,5 +1,7 @@
 package com.ssm.daos.pojo;
 
+import javax.validation.constraints.Pattern;
+
 public class Employee {
     private Integer eid;
 
@@ -19,6 +21,10 @@ public class Employee {
 
     private Integer age;
 
+    @Pattern(
+            regexp = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$",
+            message = "邮箱格式不正确"
+    )
     private String email;
 
     private String sex;

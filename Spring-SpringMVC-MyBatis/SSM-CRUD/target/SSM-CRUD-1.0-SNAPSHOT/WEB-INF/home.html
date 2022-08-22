@@ -39,7 +39,7 @@
                 <button @click="getAllDepartment" class="btn btn-primary" data-target="#myModal" data-toggle="modal">新
                     增
                 </button>
-                <button class="btn btn-danger">删 除</button>
+                <button @click="delBatchEmp" class="btn btn-danger">删 除</button>
             </div>
         </div>
         <!--        数据-->
@@ -49,7 +49,9 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th>#</th>
+                        <th>
+                            <input type="checkbox" onclick="check_all()" id="check_all">
+                        </th>
                         <th>员工ID</th>
                         <th>员工姓名</th>
                         <th>年 龄</th>
@@ -59,9 +61,11 @@
                         <th>操 作</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbody">
                     <tr v-for="(item,index) in emps_info.list">
-                        <th>#</th>
+                        <th>
+                            <input type="checkbox" onclick="check_item()" name="check_item" id="check_item">
+                        </th>
                         <th>{{item.eid}}</th>
                         <th>{{item.empName}}</th>
                         <th>{{item.age}}</th>
@@ -69,11 +73,11 @@
                         <th>{{item.sex}}</th>
                         <th>{{item.did}}</th>
                         <th>
-                            <button class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            <button class="btn btn-primary btn-sm" data-target="#myModal" data-toggle="modal" @click="editEmp(item)">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
                                 编 辑
                             </button>
-                            <button class="btn btn-danger btn-sm">
+                            <button class="btn btn-danger btn-sm" @click="delEmp(item)">
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                 删 除
                             </button>
@@ -138,6 +142,7 @@
                         <div class="form-group col-md-8">
                             <label class="control-label col-lg-4">员工姓名：</label>
                             <div class="col-lg-6">
+                                <input id="eid" value="" name="eid" type="hidden">
                                 <input type="text" id="empName" value="" name="empName" placeholder="员工姓名"
                                        class="form-control">
                             </div>
@@ -161,7 +166,7 @@
                         <div class="form-group">
                             <label class="control-label col-lg-2">性 别：</label>
                             <div class="col-lg-5">
-                                <input type="radio"  value="男" name="sex" placeholder="性 别">
+                                <input type="radio"  value="男" id="sex" name="sex" placeholder="性 别">
                                 男
                                 <input type="radio"  value="女" name="sex" placeholder="性 别">
                                 女
@@ -183,7 +188,8 @@
 
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">关 闭</button>
-                        <button class="btn btn-success" type="button" @click="addEmployee">确认并提交</button>
+                        <button id="addBtn" class="btn btn-success" type="button" @click="addEmployee">确认并提交</button>
+                        <button id="editBtn" class="btn btn-success" type="button" @click="editEmployee">更新并提交</button>
                     </div>
                 </form>
             </div>
@@ -194,6 +200,28 @@
 </body>
 <!--th:inline="javascript" 开启thmeleaf 内联解析 作用于javascript标签内-->
 <script th:inline="javascript">
+
+    function check_all() {
+        var nn = $("#check_all").is(":checked"); //判断th中的checkbox是否被选中，如果被选中则nn为true，反之为false
+        if(nn === true) {
+            var namebox = $("input[name^='check_item']");  //获取name值为boxs的所有input
+            for(i = 0; i < namebox.length; i++) {
+                namebox[i].checked=true;    //js操作选中checkbox
+            }
+        }
+        if(nn === false) {
+            var namebox = $("input[name^='check_item']");
+            for(i = 0; i < namebox.length; i++) {
+                namebox[i].checked=false;
+            }
+        }
+    }
+
+    function check_item() {
+        var b = $("input[name^='check_item']").length === $("input[name^='check_item']:checked").length;
+        $("#check_all").prop("checked",b);
+    }
+
     let root = [[${#request.getServletContext().getContextPath()}]];
     window.onload = function () {
         var vue = new Vue({
@@ -203,6 +231,79 @@
                 dept_info: null,
             },
             methods: {
+                delBatchEmp: function (){
+                    var idsStr = "";
+                    // 获取选中的行的id
+                    var elm = $("input[name^='check_item']:checked");
+                    if (elm.length === 0){
+                        alert("没有选中任何行！")
+                        return;
+                    }
+                    for (let i = 0; i < elm.length; i++) {
+                        idsStr += $(elm[i]).parents("tr").find("th:eq(1)").text()+",";
+                    }
+                    idsStr = idsStr.substring(0,idsStr.length - 1);
+                    axios({
+                        method:"DELETE",
+                        url:root+"/employee/"+ idsStr
+                    }).then(function (value){
+                        alert(value.data)
+                    }).catch(function (reason){
+                        alert(reason)
+                    });
+                },
+                editEmployee:function (){
+                    axios({
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        method: "PUT",
+                        url: root + "/employee/",
+                        //params:用于携带请求参数 和 模拟表单 （总之就是键值对）
+                        params:{},
+                        //data: 用于发送json，但要在请求之前对data传参进行格式转换
+                        data: {
+                            eid: document.getElementById('eid').value,
+                            empName: document.getElementById('empName').value,
+                            age: document.getElementById('age').value,
+                            email: document.getElementById('email').value,
+                            sex: vue.getCheckedValue(),
+                            did: document.getElementById('inputState').options[document.getElementById('inputState').selectedIndex].value
+                        },
+                        // 在请求之前对data传参进行格式转换
+                        transformRequest: [function(data) {
+                            data = JSON.stringify(data)
+                            return data
+                        }],
+                    })
+                        .then(function (value) {
+                            vue.emps_info = value.data
+                        })
+                        .catch(function (reason) {
+                            console.log(reason);
+                        });
+                },
+                editEmp: function (item){
+                    vue.getAllDepartment();
+
+                    $("#addBtn")
+                        .attr("style","display:none;");
+                    $("#editBtn")
+                        .attr("style","display:block;");
+
+                    $("#eid").val(item.eid);
+                    $("#empName").val(item.empName);
+                    $("#age").val(item.age);
+                    var radios = document.getElementsByName("sex")
+                    if (item.sex === "男"){
+                        radios[0].checked = true
+                    }else if (item.sex === "女"){
+                        radios[1].checked = true
+                    }
+                    $("#email").val(item.email);
+                    document.getElementById("inputState").value=item.did;
+
+                },
                 //在 @click 绑定方法的时候需要传入某个参数，同时又需要 event 时，可以通过 $event 传入事件。
                 getEmpsByPages: function (pages) {
                     axios({
@@ -217,7 +318,6 @@
                         });
                 },
                 addEmployee: function () {
-                    var v = new Vue();
                     axios({
                         headers: {
                             'Content-Type': 'application/json'
@@ -233,19 +333,14 @@
                             email: document.getElementById('email').value,
                             sex: vue.getCheckedValue(),
                             did: document.getElementById('inputState').options[document.getElementById('inputState').selectedIndex].value
-                            v : v
                                // 1:拿到select对象： `var myselect=document.getElementById("select");
                                 // 2：拿到选中项的索引：var index=myselect.selectedIndex ; // selectedIndex代表的是你所选中项的index
                                 // 3:拿到选中项options的value： myselect.options[index].value;
                         },
                         // 在请求之前对data传参进行格式转换
                         transformRequest: [function(data) {
-                            return JSON.parse(data, function (key, value) {
-                                if (key === "v") {
-                                    return JSON.stringify(value)
-                                }
-                                return value
-                            });
+                            data = JSON.stringify(data)
+                            return data
                         }],
                     })
                         .then(function (value) {
@@ -265,7 +360,31 @@
                         }
                     }
                 },
+                delEmp: function (item){
+                    if (confirm("确认删除"+item.empName+"吗?")) {
+                        axios({
+                            method:"DELETE",
+                            url:root+"/employee/"+item.eid
+
+                        }).then(function (value){
+                            alert(value.data)
+                        }).catch(function (reason){
+                            alert(reason)
+                        });
+                    }
+                    vue.getEmpsByPages(1);
+                },
                 getAllDepartment: function () {
+                    $("#addBtn")
+                        .attr("style","display:block;");
+                    $("#editBtn")
+                        .attr("style","display:none;");
+
+                    $("#empName").val("");
+                    $("#age").val("");
+                    $("#email").val("");
+                    document.getElementById("inputState").options[0].selected=true;
+
                     axios({
                         method: "GET",
                         url: root + "/department/findDepartments",
